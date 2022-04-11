@@ -1,0 +1,19 @@
+{
+	"name" : "jackisback/synology-dls-plugins",
+	"description" : "Synology Download Station Plugin Framework.",
+	"type" : "project",
+	"license" : "MIT",
+	"authors" : [{
+			"name" : "Adam Jakab",
+			"email" : "adam@jakab.pro"
+		}
+	],
+	"require-dev" : {
+		"symfony/console" : "~5.0"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"SynologyDlsPlugins\\" : "src/SynologyDlsPlugins"
+		}
+	}
+}
