@@ -1,0 +1,6 @@
+# Composer related
+composer.lock
+/vendor/
+
+#Temporary
+/_assets/
