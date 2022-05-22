@@ -15,6 +15,8 @@ class Autoloader
     private static $do_file_logging = true;
     private static $do_stdout_logging = true;
     
+    private static $plugin_class_name_pattern = "DlmSearchPlugin";
+    
     /**
      * 
      * @param string $base_path Class names will be prefixed with this path if set
@@ -24,6 +26,10 @@ class Autoloader
         self::registerNamespaceMap($namespacemap);
         
         spl_autoload_register(function ($class) {
+            if (substr($class, (strlen(self::$plugin_class_name_pattern) * -1)) == self::$plugin_class_name_pattern) {
+                self::log("Not autoloading special plugin class: " . $class);
+                return true;
+            }
             $file = self::getFilePathForClass($class);
             if ($file) {
                 $msg = sprintf("Loading (Class name: %s): %s", $class, $file);
@@ -78,7 +84,7 @@ class Autoloader
         }
         
         if (self::$do_file_logging) {
-            $log_file = '/tmp/dlm_userplugins.log';
+            $log_file = '/tmp/dlm_userplugins_autoloader.log';
             file_put_contents($log_file, $msg, FILE_APPEND);
         }
     }

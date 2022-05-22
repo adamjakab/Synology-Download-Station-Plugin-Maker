@@ -1,18 +1,18 @@
 <?php
-namespace DlmPluginTest2;
+namespace Plugins\Test2;
 /**
  * The autoloader will make sure load the user classes.
  * This must be required and regisitered before any use statements.
  */
-$userPluginsPath = dirname(__DIR__);
-require_once $userPluginsPath . '/SynoPluginHelper/Autoloader.php';
-SynoPluginHelper\Autoloader::register($userPluginsPath);
+$pluginsBasePath = dirname(__DIR__);
+require_once $pluginsBasePath . '/SynoPluginHelper/Autoloader.php';
+\Plugins\SynoPluginHelper\Autoloader::register(["Plugins\\" => $pluginsBasePath]);
 
 
-use SynoPluginHelper\DlmPlugin;
-use SynoPluginHelper\DlmPluginInterface;
+use Plugins\SynoPluginHelper\DlmPlugin;
+use Plugins\SynoPluginHelper\DlmPluginInterface;
 
-class DlmPluginTest2 extends DlmPlugin implements DlmPluginInterface
+class Test2DlmSearchPlugin extends DlmPlugin implements DlmPluginInterface
 {
     protected $debug = true;
     protected $name = __CLASS__;
@@ -30,7 +30,7 @@ class DlmPluginTest2 extends DlmPlugin implements DlmPluginInterface
     
     public function prepare($curl, $query)
     {
-        $this->log(sprintf("Searching: %s", $query));
+        parent::prepare($curl, $query);
     }
     
     public function parse($plugin, $response)

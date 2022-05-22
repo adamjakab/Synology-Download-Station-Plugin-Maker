@@ -30,6 +30,15 @@ class DlmPlugin
     public function __construct()
     {}
     
+    public function prepare($curl, $query)
+    {
+        curl_setopt($curl, CURLOPT_FAILONERROR, 0);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 1);
+        curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en; rv:1.9.0.4) Gecko/2008102920 AdCentriaIM/1.7 Firefox/3.0.4');
+        $this->log(sprintf("Searching: %s", $query));
+    }
+    
     protected function log($msg)
     {
         if ($this->debug === true) {
