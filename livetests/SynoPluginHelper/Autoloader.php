@@ -2,8 +2,9 @@
 namespace Plugins\SynoPluginHelper;
 
 /**
+ * Autoloader for DLS search plugins.
  * 
- * @author jackisback
+ * @author Adam Jakab (adam at jakab dot pro)
  *
  */
 class Autoloader
@@ -26,25 +27,23 @@ class Autoloader
         self::registerNamespaceMap($namespacemap);
         
         spl_autoload_register(function ($class) {
-            if (substr($class, (strlen(self::$plugin_class_name_pattern) * -1)) == self::$plugin_class_name_pattern) {
-                self::log("Not autoloading special plugin class: " . $class);
-                return true;
-            }
-            $file = self::getFilePathForClass($class);
-            if ($file) {
-                $msg = sprintf("Loading (Class name: %s): %s", $class, $file);
-            
-                self::log($msg);
+            if (substr($class, (strlen(self::$plugin_class_name_pattern) * -1)) !== self::$plugin_class_name_pattern) {
+                $file = self::getFilePathForClass($class);
+                if ($file) {
+                    $msg = sprintf("Loading (Class name: %s): %s", $class, $file);
                 
-                if (file_exists($file)) {
-                    include $file;
-                    return true;
+                    self::log($msg);
+                    
+                    if (file_exists($file)) {
+                        include $file;
+                        return true;
+                    } else {
+                        self::log("File Not Found! " . $file);
+                        //throw new \Exception("File Not Found! " . $file);
+                    }
                 } else {
-                    self::log("File Not Found! " . $file);
-                    //throw new \Exception("File Not Found! " . $file);
+                    self::log("No registered namespace fits the required class: " . $class);
                 }
-            } else {
-                self::log("No registered namespace fits the required class: " . $class);
             }
             
             return false;

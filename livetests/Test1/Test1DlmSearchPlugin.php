@@ -31,6 +31,10 @@ class Test1DlmSearchPlugin extends DlmPlugin implements DlmPluginInterface
     public function prepare($curl, $query)
     {
         parent::prepare($curl, $query);
+        $searchurl = "https://jakab.pro/?s=%s";
+        $searchurl = sprintf($searchurl, urlencode($query));
+        curl_setopt($curl, CURLOPT_URL, $searchurl);
+        $this->log(sprintf("Searching: %s", $query));
     }
     
     public function parse($plugin, $response)
