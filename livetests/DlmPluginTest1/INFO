@@ -1,0 +1,10 @@
+{
+"name": "dlm_plugin_test_1",
+"displayname": "DLM Plugin Test #1",
+"description": "Plugin tests by jack - 1",
+"version": "0.11",
+"site": "http://jakab.pro",
+"type": "search",
+"module": "DlmPluginTest1.php",
+"class": "\\Plugins\\DlmPluginTest1\\DlmPluginTest1"
+}
