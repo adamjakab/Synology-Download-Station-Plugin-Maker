@@ -5,6 +5,6 @@
 "version": "0.12",
 "site": "http://jakab.pro",
 "type": "search",
-"module": "Test1DlmSearchPlugin.php",
-"class": "\\Plugins\\Test1\\Test1DlmSearchPlugin"
+"module": "Test1DlsSearchPlugin.php",
+"class": "\\Plugins\\Test1\\Test1DlsSearchPlugin"
 }

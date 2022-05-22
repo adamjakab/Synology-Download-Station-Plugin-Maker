@@ -1,12 +1,12 @@
 <?php
-namespace Plugins\SynoPluginHelper;
+namespace Plugins\SynoPluginLibrary;
 
 /**
  *
  * @author jackisback
  *        
  */
-interface DlmPluginInterface
+interface DlsPluginInterface
 {
     /**
      * 

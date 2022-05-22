@@ -1,18 +1,18 @@
 <?php
-namespace Plugins\Test2;
+namespace Plugins\Test1;
 /**
  * The autoloader will make sure load the user classes.
  * This must be required and regisitered before any use statements.
  */
 $pluginsBasePath = dirname(__DIR__);
-require_once $pluginsBasePath . '/SynoPluginHelper/Autoloader.php';
-\Plugins\SynoPluginHelper\Autoloader::register(["Plugins\\" => $pluginsBasePath]);
+require_once $pluginsBasePath . '/SynoPluginLibrary/Autoloader.php';
+\Plugins\SynoPluginLibrary\Autoloader::register(["Plugins\\" => $pluginsBasePath]);
 
 
-use Plugins\SynoPluginHelper\DlmPlugin;
-use Plugins\SynoPluginHelper\DlmPluginInterface;
+use Plugins\SynoPluginLibrary\DlsPlugin;
+use Plugins\SynoPluginLibrary\DlsPluginInterface;
 
-class Test2DlmSearchPlugin extends DlmPlugin implements DlmPluginInterface
+class Test1DlsSearchPlugin extends DlsPlugin implements DlsPluginInterface
 {
     protected $debug = true;
     protected $name = __CLASS__;

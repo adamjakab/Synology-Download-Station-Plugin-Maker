@@ -1,5 +1,5 @@
 <?php
-namespace Plugins\SynoPluginHelper;
+namespace Plugins\SynoPluginLibrary;
 
 use DateTime;
 use Exception;
