@@ -3,7 +3,8 @@ namespace Plugins\SynoPluginLibrary;
 
 
 /**
- * This class is just a placeholder so the plugin is valid and can be imported.
+ * This class is just a placeholder so the SynoPluginLibrary is considered
+ * as a valid plugin and hence can be imported.
  */
 class SynoPluginLibrary
 {

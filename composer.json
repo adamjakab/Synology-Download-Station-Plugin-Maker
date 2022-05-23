@@ -13,7 +13,8 @@
 	},
 	"autoload" : {
 		"psr-4" : {
-			"SynologyDlsPlugins\\" : "src/SynologyDlsPlugins"
+			"SynologyDlsPlugins\\" : "src/SynologyDlsPlugins",
+			"Plugins\\SynoPluginLibrary\\" : "src/Plugins/SynoPluginLibrary"
 		}
 	}
 }

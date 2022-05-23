@@ -1,12 +1,15 @@
 <?php
 namespace Plugins\Dummy;
 /**
- * The autoloader will make sure load the user classes.
- * This must be required and regisitered before any use statements.
+ * The autoloader required and regisitered before any use statements.
+ * @see /console.php
  */
-$pluginsBasePath = dirname(__DIR__);
-require_once $pluginsBasePath . '/SynoPluginLibrary/Autoloader.php';
-\Plugins\SynoPluginLibrary\Autoloader::register(["Plugins\\" => $pluginsBasePath]);
+if (!isset($GLOBALS["is_build_environment"])) {
+    $pluginsBasePath = dirname(__DIR__);
+    require $pluginsBasePath . '/SynoPluginLibrary/Autoloader.php';
+    \Plugins\SynoPluginLibrary\Autoloader::register(["Plugins\\" => $pluginsBasePath]);
+}
+/* ------------------------------------------------------------------------------ */
 
 use Plugins\SynoPluginLibrary\DlsPlugin;
 use Plugins\SynoPluginLibrary\DlsPluginInterface;

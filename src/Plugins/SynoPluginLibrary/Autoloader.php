@@ -66,7 +66,7 @@ class Autoloader
         foreach (self::$namespacemap as $ns => $path) {
             if (substr($class, 0, strlen($ns)) === $ns) {
                 $classNoNsRoot = substr($class, strlen($ns));
-                self::log("classNoNsRoot: " . $classNoNsRoot);
+                //self::log("classNoNsRoot: " . $classNoNsRoot);
                 $answer = $path . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $classNoNsRoot) . '.php';
                 break;
             }
