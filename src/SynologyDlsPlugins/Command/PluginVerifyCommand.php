@@ -37,30 +37,37 @@ class PluginVerifyCommand extends ConsoleCommand
             return ConsoleCommand::FAILURE;
         }
         
+        $output->writeln(sprintf("Plugin info: %s", json_encode($pluginListItem)));
+        
         $output->writeln(sprintf("Loading Plugin file: %s", $pluginListItem["path"]));
         require_once $pluginListItem["path"];
         
-        //$fcc = $pluginListItem["namespace"] . '\\' . $pluginListItem["classname"];
-        $fcc = $pluginListItem["classname"];
+        // Create Plugin Instance
+        $fcc = $pluginListItem["namespace"] . '\\' . $pluginListItem["classname"];
         $output->writeln(sprintf("Registering class: %s...", $fcc));
         $plugin = new \ReflectionClass($fcc);
         $pluginInstance = $plugin->newInstance();
         
-        //Check property: name
+        // Check if class implements Plugins\SynoPluginLibrary\DlsPluginInterface
+        
+        
+        //Check Property: name
         if (!$plugin->hasProperty("name")) {
             $output->writeln(sprintf("Property '%s' is missing", $plugin_name));
             return ConsoleCommand::FAILURE;
         }
         
         $props = $plugin->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PROTECTED);
-        //$output->writeln(sprintf("Properties: ", var_dump($props, true)));
         foreach ($props as $prop) {
-            print $prop->getName() . "\n";
             $prop->setAccessible(true);
-            print $prop->getValue($pluginInstance) . "\n";
+            $output->writeln(sprintf("Property '%s' = '%s'", $prop->getName(), $prop->getValue($pluginInstance)));
+            //print $prop->getName() . "\n";
+            //$prop->setAccessible(true);
+            //print $prop->getValue($pluginInstance) . "\n";
         }
         
-        /*
+        
+        /* The INFO File content
          {
             "name": "ilcorsaronero",
             "displayname": "Il Corsaro Nero",
@@ -75,6 +82,7 @@ class PluginVerifyCommand extends ConsoleCommand
         
         
         //$plugin->newInstance();
+        $output->writeln(sprintf("Plugin '%s' OK.", $plugin_name));
         
         
         return ConsoleCommand::SUCCESS;

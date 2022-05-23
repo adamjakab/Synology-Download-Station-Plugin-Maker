@@ -1,32 +1,31 @@
 <?php
-namespace Plugins;
-
+namespace Plugins\Dummy;
 /**
  * The autoloader will make sure load the user classes.
  * This must be required and regisitered before any use statements.
  */
-require_once 'SynoPluginHelper/Autoloader.php';
-SynoPluginHelper\Autoloader::register();
+$pluginsBasePath = dirname(__DIR__);
+require_once $pluginsBasePath . '/SynoPluginLibrary/Autoloader.php';
+\Plugins\SynoPluginLibrary\Autoloader::register(["Plugins\\" => $pluginsBasePath]);
 
-use Plugins\SynoPluginHelper\DlmPlugin;
-use Plugins\SynoPluginHelper\DlmPluginInterface;
+use Plugins\SynoPluginLibrary\DlsPlugin;
+use Plugins\SynoPluginLibrary\DlsPluginInterface;
 
 /**
  *
  * @author jackisback
  *        
  */
-class Dummy extends DlmPlugin implements DlmPluginInterface
+class DummyDlsSearchPlugin extends DlsPlugin implements DlsPluginInterface
 {
-
+    protected $debug = true;
+    protected $name = __CLASS__;
     /**
      */
     public function __construct()
     {
         parent::__construct();
-        $this->debug = true;
-        $this->name = "dummy";
-        $this->log(sprintf("Plugin class '%s' constructed: %s", $this->name, __CLASS__));
+        $this->log("Constructed.");
     }
     
     /**
