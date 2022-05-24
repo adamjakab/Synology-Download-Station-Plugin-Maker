@@ -1,7 +1,7 @@
 <?php
 namespace Plugins\Dummy;
 /**
- * The autoloader required and regisitered before any use statements.
+ * The autoloader must be registered before any use statements.
  * @see /console.php
  */
 if (!isset($GLOBALS["is_build_environment"])) {
@@ -13,6 +13,7 @@ if (!isset($GLOBALS["is_build_environment"])) {
 
 use Plugins\SynoPluginLibrary\DlsPlugin;
 use Plugins\SynoPluginLibrary\DlsPluginInterface;
+//use Plugins\Dummy\DummyHelper;
 
 /**
  *
@@ -29,6 +30,7 @@ class DummyDlsSearchPlugin extends DlsPlugin implements DlsPluginInterface
     {
         parent::__construct();
         $this->log("Constructed.");
+        //DummyHelper::Help();
     }
     
     /**
