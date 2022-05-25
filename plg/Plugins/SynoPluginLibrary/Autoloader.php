@@ -36,7 +36,7 @@ class Autoloader
         self::registerNamespaceMap($namespacemap);
 
         spl_autoload_register(function ($class) {
-            if (substr($class, (strlen(self::$plugin_class_name_pattern) * - 1)) !== self::$plugin_class_name_pattern) {
+            if (self::isClassLoadable($class)) {
                 $file = self::getFilePathForClass($class);
                 if ($file) {
                     $msg = sprintf("Loading (Class name: %s): %s", $class, $file);
@@ -53,10 +53,23 @@ class Autoloader
                 } else {
                     self::log("No registered namespace fits the required class: " . $class);
                 }
+            } else {
+                self::log(sprintf("Refusing to loading class: %s", $class));
             }
 
             return false;
         });
+    }
+    
+    private static function isClassLoadable($class) {
+        $answer = true;
+        if (substr($class, (strlen(self::$plugin_class_name_pattern) * - 1)) === self::$plugin_class_name_pattern) {
+            $answer = false;
+        } else if ($class === "Plugins\SynoPluginLibrary\SynoPluginLibrary") {
+            $answer = false;
+        }
+        
+        return $answer;
     }
 
     private static function getFilePathForClass($class)

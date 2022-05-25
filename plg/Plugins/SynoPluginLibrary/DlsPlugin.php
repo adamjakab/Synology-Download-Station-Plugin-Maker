@@ -41,6 +41,17 @@ class DlsPlugin
         curl_setopt($curl, CURLOPT_USERAGENT, $this->curl_user_agent);
         $this->log(sprintf("Searching: %s", $query));
     }
+    
+    /**
+     * Parses the loaded html and returns the number of results added to the plugin.
+     * @param object $plugin
+     * @param string $searchPageHtml
+     * @return int
+     */
+    public function parse($plugin, $searchPageHtml)
+    {
+        return 0;
+    }
 
     /**
      *

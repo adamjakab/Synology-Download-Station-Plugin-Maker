@@ -7,6 +7,9 @@ class PluginHelper
     public static $plugin_class_name_pattern = "DlsSearchPlugin";
     
     /** @var string */
+    public static $plugins_root_path = "plg";
+    
+    /** @var string */
     public static $plugins_folder_name = "Plugins";
     
     
@@ -78,7 +81,7 @@ class PluginHelper
     
     public static function getPluginsFolder()
     {
-        return (sprintf("%s/%s", $GLOBALS["project_folder"], self::$plugins_folder_name));
+        return (sprintf("%s/%s/%s", $GLOBALS["project_folder"], self::$plugins_root_path, self::$plugins_folder_name));
     }
 }
 

@@ -1,0 +1,10 @@
+{
+"name": "dummy",
+"displayname": "Dummy (DLS Search Plugin)",
+"description": "Dummy by jack",
+"version": "0.14",
+"site": "http://jakab.pro",
+"type": "search",
+"module": "DummyDlsSearchPlugin.php",
+"class": "\\Plugins\\Dummy\\DummyDlsSearchPlugin"
+}

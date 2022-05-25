@@ -8,7 +8,7 @@ use DateTime;
  * @author jackisback
  *        
  */
-final class SearchLink
+class SearchLink
 {
     /** @var string The name of the plugin used to find the resource */
     public $src = "";

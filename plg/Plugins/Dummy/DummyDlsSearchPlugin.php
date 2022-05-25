@@ -4,16 +4,13 @@ namespace Plugins\Dummy;
  * The autoloader must be registered before any use statements.
  * @see /console.php
  */
-if (!isset($GLOBALS["is_build_environment"])) {
-    $pluginsBasePath = dirname(__DIR__);
-    require $pluginsBasePath . '/SynoPluginLibrary/Autoloader.php';
-    \Plugins\SynoPluginLibrary\Autoloader::register(["Plugins\\" => $pluginsBasePath]);
-}
+$pluginsBasePath = dirname(__DIR__);
+require_once $pluginsBasePath . '/SynoPluginLibrary/Autoloader.php';
+\Plugins\SynoPluginLibrary\Autoloader::register(["Plugins\\" => $pluginsBasePath]);
 /* ------------------------------------------------------------------------------ */
 
 use Plugins\SynoPluginLibrary\DlsPlugin;
 use Plugins\SynoPluginLibrary\DlsPluginInterface;
-//use Plugins\Dummy\DummyHelper;
 
 /**
  *
@@ -30,27 +27,31 @@ class DummyDlsSearchPlugin extends DlsPlugin implements DlsPluginInterface
     {
         parent::__construct();
         $this->log("Constructed.");
-        //DummyHelper::Help();
+        DummyHelper::Help();
     }
     
     /**
      * 
      * {@inheritDoc}
-     * @see \SynoPluginHelper\DlmPluginInterface::prepare()
+     * @see DlsPluginInterface::prepare()
      */
     public function prepare($curl, $query)
     {
-        
+        parent::prepare($curl, $query);
+        $searchurl = "https://example.com/?s=%s";
+        $searchurl = sprintf($searchurl, urlencode($query));
+        curl_setopt($curl, CURLOPT_URL, $searchurl);
     }
     
     /**
      * 
      * {@inheritDoc}
-     * @see \SynoPluginHelper\DlmPluginInterface::parse()
+     * @see DlsPluginInterface::parse()
      */
     public function parse($plugin, $searchPageHtml)
     {
-        
+        parent::parse($plugin, $searchPageHtml);
+        $this->log("Parsing...");
     }
 }
 

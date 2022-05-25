@@ -7,12 +7,7 @@ use SynologyDlsPlugins\Command\PluginListCommand;
 use SynologyDlsPlugins\Command\PluginPackCommand;
 use SynologyDlsPlugins\Command\PluginVerifyCommand;
 
-/**
- * When in the Builder environment (env=builder) composer/autoloader is available.
- * So plugin classes will not load the \Plugins\SynoPluginLibrary\Autoloader class. 
- */
-isset($GLOBALS["is_build_environment"]) || $GLOBALS['is_build_environment'] = TRUE;
-
+//isset($GLOBALS["is_build_environment"]) || $GLOBALS['is_build_environment'] = TRUE;
 isset($GLOBALS["project_folder"]) || $GLOBALS['project_folder'] = dirname(__FILE__);
 
 $application = new Application();
