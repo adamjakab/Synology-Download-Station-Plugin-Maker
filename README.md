@@ -1,9 +1,38 @@
 Synology Download Station Plugin Maker
 ======================================
 
-### How to use
+***This repo is under heavy development and is not yet usable***
 
-You must use the console `app` application.
+This is a php command line tool for helping to develop, verify, package and maintain search plugins for Synology Download Station (DLS).
+
+
+# Overview
+
+
+# Installation
+Clone the repo and install the composer dependencies.
+
+```bash
+git clone https://github.com/adamjakab/Synology-Download-Station-Plugin-Maker
+cd Synology-Download-Station-Plugin-Maker
+composer install
+```
+
+The installed composer packages stored in the vendor folder are only necessary for the local building environment.
+
+# How to use
+Use the console `app` application by typing `./app` in the application folder.
+This will list the following commands under the plugin section:
+
+```
+ plugin
+  plugin:list     List all plugins
+  plugin:pack     Pack a plugin
+  plugin:prepare  Prepare a plugin
+  plugin:run      Run a plugin
+  plugin:verify   Verify a plugin
+```
+
 
 TBC...
 
