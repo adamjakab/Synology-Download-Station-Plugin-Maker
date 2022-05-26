@@ -7,6 +7,7 @@ This is a php command line tool for helping to develop, verify, package and main
 
 
 # Overview
+Plugins live in the `plg/Plugins` folder in their own subfolder. This is the working directory in which you will do your development.
 
 
 # Installation
