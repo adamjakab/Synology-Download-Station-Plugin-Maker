@@ -23,20 +23,20 @@ class PluginRunCommand extends ConsoleCommand
         $this->setHelp("Select a plugin and run it.");
         
         $this->addArgument('plugin_name', InputArgument::REQUIRED, 'Plugin name');
+        $this->addArgument('search_term', InputArgument::REQUIRED, 'Search term');
     }
     
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $plugin_name = $input->getArgument('plugin_name');
+        $search_term = $input->getArgument('search_term');
         $pluginListItem = PluginHelper::getPluginListItemByName($plugin_name);
         if (!$pluginListItem) {
             $output->writeln(sprintf("The requested plugin('%s') does not exist!", $plugin_name));
             return ConsoleCommand::FAILURE;
         }
-        
-        
-        
-        $output->writeln(sprintf("Requested plugin: %s: %s", $pluginListItem["name"], $pluginListItem["path"]));
+
+        $output->writeln(sprintf("Running plugin(%s) - searching: '%s' ...", $plugin_name, $search_term));
         
 
         return ConsoleCommand::SUCCESS;
