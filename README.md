@@ -42,8 +42,8 @@ TBC...
 
 ### Notes & Documentation
 
-Plugin documentation: https://global.download.synology.com/download/Document/Software/DeveloperGuide/Package/DownloadStation/All/enu/DLM_Guide.pdf
-
+- [Plugin documentation](https://global.download.synology.com/download/Document/Software/DeveloperGuide/Package/DownloadStation/All/enu/DLM_Guide.pdf)
+- [Symfony String Doc](https://symfony.com/doc/current/components/string.html#methods-to-change-case)
 
 Plugins are installed to: /volume1/@appconf/DownloadStation/download/userplugins/[pluginname]
 

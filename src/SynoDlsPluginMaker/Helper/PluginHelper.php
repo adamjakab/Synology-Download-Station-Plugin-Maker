@@ -1,10 +1,12 @@
 <?php
 namespace SynoDlsPluginMaker\Helper;
 
+use Symfony\Component\String\UnicodeString;
+
 class PluginHelper
 {
     /** @var string */
-    public static $plugin_class_name_pattern = "DlsSearchPlugin";
+    //public static $plugin_class_name_pattern = "DlsSearchPlugin";
     
     /** @var string */
     public static $plugins_root_path = "plg";
@@ -12,7 +14,8 @@ class PluginHelper
     /** @var string */
     public static $plugins_folder_name = "Plugins";
     
-    
+    /** @var string */
+    public static $plugin_class_name_suffix = "DlsSearchPlugin";
 
     /**
      * Returns the list of available pluigin names
@@ -54,13 +57,14 @@ class PluginHelper
     public static function getPluginList()
     {
         $answer = [];
-        $search_pattern = self::getPluginsFolder() . "/**/*" . self::$plugin_class_name_pattern . ".php";
+        $search_pattern = self::getPluginsFolder() . "/**/*" . self::$plugin_class_name_suffix . ".php";
         $file_list = glob($search_pattern);
         foreach ($file_list as $plugin_path) {
+            /** @todo: Needs review!!! */
             /** @todo: we can use unsderscores and Camel case for better Class name conversion from file name */
             //$name = strtolower(str_replace(self::getPluginsFolder() . "/", "", $plugin_path));
             $class_name = basename($plugin_path, ".php");
-            $plugin_folder = str_replace(self::$plugin_class_name_pattern, "", $class_name);
+            $plugin_folder = str_replace(self::$plugin_class_name_suffix, "", $class_name);
             $plugin_name = strtolower($plugin_folder);
             $plugin_namespace = sprintf("%s\\%s", self::$plugins_folder_name, $plugin_folder);
             
@@ -79,9 +83,57 @@ class PluginHelper
         return $answer;
     }
     
+    public static function getPluginFolderPath($plugin_name) {
+        $plugins_folder = self::getPluginsFolder();
+        $folder_name = self::getFolderNameFromPluginName($plugin_name);
+        return (sprintf("%s/%s", $plugins_folder, $folder_name));
+    }
+    
     public static function getPluginsFolder()
     {
         return (sprintf("%s/%s/%s", $GLOBALS["project_folder"], self::$plugins_root_path, self::$plugins_folder_name));
+    }
+    
+    /**
+     * Module is the search plugin file loaded by DLS
+     * @param string $name
+     * @return string
+     */
+    public static function getModuleNameFromPluginName(string $name) {
+        $class_name = self::getClassNameFromPluginName($name);
+        return sprintf("%s.php", $class_name);
+    }
+    
+    /**
+     * 
+     * @param string $name
+     * @return string
+     */
+    public static function getNamespacedClassNameFromPluginName(string $name) {
+        $folder_name = self::getFolderNameFromPluginName($name);
+        $class_name = self::getClassNameFromPluginName($name);
+        //\\Plugins\\Dummy\\DummyDlsSearchPlugin
+        return sprintf("\\%s\\%s\\%s", self::$plugins_folder_name, $folder_name, $class_name);
+    }
+    
+    /**
+     * 
+     * @param string $name
+     * @return string
+     */
+    public static function getClassNameFromPluginName(string $name) {
+        $folder_name = self::getFolderNameFromPluginName($name);
+        return sprintf("%s%s", $folder_name, self::$plugin_class_name_suffix);
+    }
+    
+    /**
+     * 
+     * @param string $name
+     * @return string
+     */
+    public static function getFolderNameFromPluginName(string $name) {
+        $u = new UnicodeString($name);
+        return $u->lower()->camel()->title();
     }
 }
 
