@@ -1,8 +1,12 @@
-# Composer related
+# Composer Related
 /.buildpath
 /composer.lock
 /vendor/
 
+# IDE Related
+#/.project
+#/.settings
+
+
 #Temporary
 /_assets/
-
