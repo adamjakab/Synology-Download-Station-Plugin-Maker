@@ -1,6 +1,6 @@
 {
-	"name" : "jackisback/synology-dls-plugins",
-	"description" : "Synology Download Station Plugin Framework.",
+	"name" : "jackisback/synology-dls-plugin-maker",
+	"description" : "Synology Download Station plugin maker framework.",
 	"type" : "project",
 	"license" : "MIT",
 	"authors" : [{

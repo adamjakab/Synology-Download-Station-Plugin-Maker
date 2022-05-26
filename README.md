@@ -25,8 +25,9 @@ The installed composer packages stored in the vendor folder are only necessary f
 Use the console `app` application by typing `./app` in the application folder.
 This will list the following commands under the plugin section:
 
-```
+```bash
  plugin
+  plugin:create   Create a new plugin
   plugin:list     List all plugins
   plugin:pack     Pack a plugin
   plugin:prepare  Prepare a plugin
