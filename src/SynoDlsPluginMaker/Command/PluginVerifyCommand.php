@@ -6,7 +6,7 @@ use ReflectionProperty;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use SynoDlsPluginMaker\Helper\PluginHelper;
+use SynoDlsPluginMaker\Helper\PluginCommandHelper;
 
 class PluginVerifyCommand extends ConsoleCommand
 {
@@ -31,7 +31,7 @@ class PluginVerifyCommand extends ConsoleCommand
         $plugin_name = $input->getArgument('plugin_name');
         $output->writeln(sprintf("Verifying plugin: %s...", $plugin_name));
 
-        $pluginListItem = PluginHelper::getPluginListItemByName($plugin_name);
+        $pluginListItem = PluginCommandHelper::getPluginListItemByName($plugin_name);
         if (!$pluginListItem) {
             $output->writeln(sprintf("The requested plugin('%s') does not exist!", $plugin_name));
             return ConsoleCommand::FAILURE;

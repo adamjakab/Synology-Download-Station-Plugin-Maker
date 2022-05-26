@@ -5,7 +5,7 @@ use Symfony\Component\Console\Command\Command as ConsoleCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use SynoDlsPluginMaker\Helper\PluginHelper;
+use SynoDlsPluginMaker\Helper\PluginCommandHelper;
 use Symfony\Component\String\UnicodeString;
 
 class PluginCreateCommand extends ConsoleCommand
@@ -36,15 +36,15 @@ class PluginCreateCommand extends ConsoleCommand
             return ConsoleCommand::FAILURE;
         }
 
-        $pluginListItem = PluginHelper::getPluginListItemByName($plugin_name);
+        $pluginListItem = PluginCommandHelper::getPluginListItemByName($plugin_name);
         if ($pluginListItem) {
             $output->writeln(sprintf("A plugin with this name('%s') already exists!", $plugin_name));
             return ConsoleCommand::FAILURE;
         }
 
-        $plugin_folder_name = PluginHelper::getFolderNameFromPluginName($plugin_name);
+        $plugin_folder_name = PluginCommandHelper::getFolderNameFromPluginName($plugin_name);
 
-        $plugin_folder_path = PluginHelper::getPluginFolderPath($plugin_name);
+        $plugin_folder_path = PluginCommandHelper::getPluginFolderPath($plugin_name);
         if (is_dir($plugin_folder_path)) {
             $output->writeln(sprintf("A path for this plugin already exists! %s", $plugin_folder_path));
             return ConsoleCommand::FAILURE;
@@ -64,9 +64,9 @@ class PluginCreateCommand extends ConsoleCommand
         $plugin_version = "0.1";
         $plugin_site = "https://www.example.com";
         $plugin_type = "search";
-        $plugin_module = PluginHelper::getModuleNameFromPluginName($plugin_name);
-        $plugin_class = PluginHelper::getClassNameFromPluginName($plugin_name);
-        $plugin_namespaced_class = PluginHelper::getNamespacedClassNameFromPluginName($plugin_name);
+        $plugin_module = PluginCommandHelper::getModuleNameFromPluginName($plugin_name);
+        $plugin_class = PluginCommandHelper::getClassNameFromPluginName($plugin_name);
+        $plugin_namespaced_class = PluginCommandHelper::getNamespacedClassNameFromPluginName($plugin_name);
 
         $info_file_data = [
             "name" => $plugin_name,

@@ -3,7 +3,7 @@ namespace SynoDlsPluginMaker\Helper;
 
 use Symfony\Component\String\UnicodeString;
 
-class PluginHelper
+class PluginCommandHelper
 {
     /** @var string */
     //public static $plugin_class_name_pattern = "DlsSearchPlugin";

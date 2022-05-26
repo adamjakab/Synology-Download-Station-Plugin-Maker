@@ -5,7 +5,7 @@ use Symfony\Component\Console\Command\Command as ConsoleCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use SynoDlsPluginMaker\Helper\PluginHelper;
+use SynoDlsPluginMaker\Helper\PluginCommandHelper;
 
 
 class PluginRunCommand extends ConsoleCommand
@@ -30,7 +30,7 @@ class PluginRunCommand extends ConsoleCommand
     {
         $plugin_name = $input->getArgument('plugin_name');
         $search_term = $input->getArgument('search_term');
-        $pluginListItem = PluginHelper::getPluginListItemByName($plugin_name);
+        $pluginListItem = PluginCommandHelper::getPluginListItemByName($plugin_name);
         if (!$pluginListItem) {
             $output->writeln(sprintf("The requested plugin('%s') does not exist!", $plugin_name));
             return ConsoleCommand::FAILURE;
