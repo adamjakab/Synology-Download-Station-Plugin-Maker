@@ -1,0 +1,10 @@
+{
+    "name": "il_corsaro_nero",
+    "displayname": "IlCorsaroNero (DLS Search Plugin)",
+    "description": "IlCorsaroNero search plugin.",
+    "version": "0.1",
+    "site": "https:\/\/www.example.com",
+    "type": "search",
+    "module": "IlCorsaroNeroDlsSearchPlugin.php",
+    "class": "\\Plugins\\IlCorsaroNero\\IlCorsaroNeroDlsSearchPlugin"
+}
