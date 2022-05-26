@@ -1,5 +1,5 @@
 <?php
-namespace SynologyDlsPlugins\Helper;
+namespace SynoDlsPluginMaker\Helper;
 
 class PluginHelper
 {

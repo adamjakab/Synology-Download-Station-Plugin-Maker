@@ -1,5 +1,5 @@
 <?php
-namespace SynologyDlsPlugins\Builder;
+namespace SynoDlsPluginMaker\Builder;
 
 use Symfony\Component\Console\Output\OutputInterface;
 

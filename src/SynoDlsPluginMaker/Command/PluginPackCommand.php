@@ -1,11 +1,11 @@
 <?php
-namespace SynologyDlsPlugins\Command;
+namespace SynoDlsPluginMaker\Command;
 
 use Symfony\Component\Console\Command\Command as ConsoleCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use SynologyDlsPlugins\Helper\PluginHelper;
+use SynoDlsPluginMaker\Helper\PluginHelper;
 
 class PluginPackCommand extends ConsoleCommand
 {

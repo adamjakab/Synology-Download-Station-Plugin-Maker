@@ -1,9 +1,10 @@
 <?php
-namespace Build;
+namespace SynoDlsPluginMaker\Plugin;
 
 /**
  *
- * @author jackisback
+ * TBD: This should be the $plugin class(SynoDLMSearchPlugin) passed to the parse method
+ * @see btsearch.php 
  *        
  */
 class Plugin
