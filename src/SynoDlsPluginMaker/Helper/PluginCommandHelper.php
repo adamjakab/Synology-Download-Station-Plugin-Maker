@@ -59,16 +59,23 @@ class PluginCommandHelper
         $answer = [];
         $search_pattern = self::getPluginsFolder() . "/**/*" . self::$plugin_class_name_suffix . ".php";
         $file_list = glob($search_pattern);
-        foreach ($file_list as $plugin_path) {
-            /** @todo: Needs review!!! */
-            /** @todo: we can use unsderscores and Camel case for better Class name conversion from file name */
-            //$name = strtolower(str_replace(self::getPluginsFolder() . "/", "", $plugin_path));
-            $class_name = basename($plugin_path, ".php");
-            $plugin_folder = str_replace(self::$plugin_class_name_suffix, "", $class_name);
-            $plugin_name = strtolower($plugin_folder);
-            $plugin_namespace = sprintf("%s\\%s", self::$plugins_folder_name, $plugin_folder);
+        foreach ($file_list as $plugin_file_path) {
+            $plugin_folder_path = dirname($plugin_file_path);
+            $plugin_info_path = sprintf("%s/INFO", $plugin_folder_path);
+            try {
+                $plugin_info = self::getPluginInfoDatafromPath($plugin_info_path);
+            } catch (\Exception $e) {
+                continue;
+            }
             
+            $plugin_name = $plugin_info["name"];
+            //$plugin_folder = self::getFolderNameFromPluginName($plugin_name);
+            $class_name = self::getClassNameFromPluginName($plugin_name);
+            $plugin_namespace = self::getNamespacedClassNameFromPluginName($plugin_name);
+            
+//             print("plugin path: " . $plugin_path . "\n");
 //             print("class name: " . $class_name . "\n");
+//             print("plugin folder: " . $plugin_folder . "\n");
 //             print("plugin name: " . $plugin_name . "\n");
 //             print("plugin namespace: " . $plugin_namespace . "\n");
 
@@ -76,11 +83,24 @@ class PluginCommandHelper
                 "name" => $plugin_name,
                 "classname" => $class_name,
                 "namespace" => $plugin_namespace,
-                "path" => $plugin_path
+                "file_path" => $plugin_file_path,
+                "folder_path" => $plugin_folder_path
             ];
         }
 
         return $answer;
+    }
+    
+    
+    
+    public static function getPluginInfoDatafromPath($path)
+    {
+        if(!is_file($path)) {
+            throw \Exception("Info file not found!");
+        }
+        $info_content = file_get_contents($path);
+        $info_data = json_decode($info_content, true);
+        return $info_data;
     }
     
     public static function getPluginFolderPath($plugin_name) {

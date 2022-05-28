@@ -19,7 +19,21 @@ class DlsPlugin
     protected $name = __CLASS__;
 
     /** @var string     The User-Agent header that is sent along with the request by curl. */
-    protected $curl_user_agent = "Mozilla/5.0 (Windows; U; Windows NT 5.1; en; rv:1.9.0.4) Gecko/2008102920 AdCentriaIM/1.7 Firefox/3.0.4";
+    //protected $curl_user_agent = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:100.0) Gecko/20100101 Firefox/100.0";
+    
+    /** @var array      Curl options to be set */
+    protected $curl_options = [
+        CURLOPT_FAILONERROR =>      TRUE,
+        CURLOPT_RETURNTRANSFER =>   TRUE,
+        CURLOPT_CONNECTTIMEOUT =>   3,
+        CURLOPT_TIMEOUT =>          30, 
+        CURLOPT_USERAGENT =>        "SynoDLSSearchPlugin/0.2 (https://github.com/adamjakab/Synology-Download-Station-Plugin-Maker)",
+    ];
+    
+    /** @var array      Curl options to be set */
+    protected $curl_headers = [
+        "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+    ];
 
     /**
      * Constructor
@@ -35,11 +49,9 @@ class DlsPlugin
      */
     public function prepare($curl, $query)
     {
-        curl_setopt($curl, CURLOPT_FAILONERROR, 0);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_TIMEOUT, 1);
-        curl_setopt($curl, CURLOPT_USERAGENT, $this->curl_user_agent);
-        $this->log(sprintf("Searching: %s", $query));
+        $this->curl_options[CURLOPT_HTTPHEADER] = $this->curl_headers;
+        curl_setopt_array( $curl, $this->curl_options );
+        $this->log(sprintf("Searching(%s): '%s'", $query, $this->curl_options[CURLOPT_URL]));
     }
     
     /**

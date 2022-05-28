@@ -3,7 +3,7 @@
     "displayname": "MagnetDL (DLS Search Plugin)",
     "description": "MagnetDL search plugin.",
     "version": "0.1",
-    "site": "https:\/\/www.example.com",
+    "site": "https://www.magnetdl.com",
     "type": "search",
     "module": "MagnetDLDlsSearchPlugin.php",
     "class": "\\Plugins\\MagnetDL\\MagnetDLDlsSearchPlugin"

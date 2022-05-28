@@ -39,11 +39,11 @@ class PluginVerifyCommand extends ConsoleCommand
         
         $output->writeln(sprintf("Plugin info: %s", json_encode($pluginListItem)));
         
-        $output->writeln(sprintf("Loading Plugin file: %s", $pluginListItem["path"]));
-        require_once $pluginListItem["path"];
+        $output->writeln(sprintf("Loading Plugin file: %s", $pluginListItem["file_path"]));
+        require_once $pluginListItem["file_path"];
         
         // Create Plugin Instance
-        $fcc = $pluginListItem["namespace"] . '\\' . $pluginListItem["classname"];
+        $fcc = $pluginListItem["namespace"];
         $output->writeln(sprintf("Registering class: %s...", $fcc));
         $plugin = new \ReflectionClass($fcc);
         $pluginInstance = $plugin->newInstance();
@@ -57,17 +57,8 @@ class PluginVerifyCommand extends ConsoleCommand
             return ConsoleCommand::FAILURE;
         }
         
-        $props = $plugin->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PROTECTED);
-        foreach ($props as $prop) {
-            $prop->setAccessible(true);
-            $output->writeln(sprintf("Property '%s' = '%s'", $prop->getName(), $prop->getValue($pluginInstance)));
-            //print $prop->getName() . "\n";
-            //$prop->setAccessible(true);
-            //print $prop->getValue($pluginInstance) . "\n";
-        }
         
-        
-        /* The INFO File content
+        /* Verify the INFO File content
          {
             "name": "ilcorsaronero",
             "displayname": "Il Corsaro Nero",
@@ -79,11 +70,8 @@ class PluginVerifyCommand extends ConsoleCommand
             "class": "SynoDLMSearchSMKilcorsaronero" 
             }
          */
-        
-        
-        //$plugin->newInstance();
+
         $output->writeln(sprintf("Plugin '%s' OK.", $plugin_name));
-        
         
         return ConsoleCommand::SUCCESS;
     }

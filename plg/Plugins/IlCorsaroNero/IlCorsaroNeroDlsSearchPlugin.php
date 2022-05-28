@@ -35,9 +35,10 @@ class IlCorsaroNeroDlsSearchPlugin extends DlsPlugin implements DlsPluginInterfa
     public function prepare($curl, $query)
     {
         parent::prepare($curl, $query);
-        $searchurl = "https://example.com/?s=%s";
+        $searchurl = "https://www.ilcorsaronero.in/argh?search=%s";
         $searchurl = sprintf($searchurl, urlencode($query));
         curl_setopt($curl, CURLOPT_URL, $searchurl);
+        $this->log(sprintf("Search URL: %s", $searchurl));
     }
     
     /**

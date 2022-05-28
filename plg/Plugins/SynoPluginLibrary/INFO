@@ -2,7 +2,7 @@
 "name": "syno_plugin_library",
 "displayname": "DLS Search Plugin Library",
 "description": "This library contains all the shared resources used by the search plugins created with the Synology Download Station Plugin Maker app.",
-"version": "0.2",
+"version": "0.3",
 "site": "https://github.com/adamjakab/Synology-Download-Station-Plugin-Maker",
 "type": "search",
 "module": "SynoPluginLibrary.php",

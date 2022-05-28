@@ -38,9 +38,10 @@ class DummyDlsSearchPlugin extends DlsPlugin implements DlsPluginInterface
     public function prepare($curl, $query)
     {
         parent::prepare($curl, $query);
-        $searchurl = "https://example.com/?s=%s";
-        $searchurl = sprintf($searchurl, urlencode($query));
+        $searchurl = sprintf("http://localhost/?s=%s", urlencode($query));
         curl_setopt($curl, CURLOPT_URL, $searchurl);
+        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 1);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 1);
     }
     
     /**
