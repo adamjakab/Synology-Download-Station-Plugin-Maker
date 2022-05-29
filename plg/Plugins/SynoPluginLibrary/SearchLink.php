@@ -202,7 +202,7 @@ class SearchLink
      */
     public function setDownloadUrl($download_url)
     {
-        $this->download_url = $download_url;
+        $this->download_url = html_entity_decode($download_url);
     }
 
     /**

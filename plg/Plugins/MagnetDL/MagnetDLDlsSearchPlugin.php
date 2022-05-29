@@ -62,39 +62,46 @@ class MagnetDLDlsSearchPlugin extends DlsPlugin implements DlsPluginInterface
     {
         parent::parse($plugin, $searchPageHtml);
         $this->log(sprintf("Parsing(contenth length: %s)...", strlen($searchPageHtml)));
+        $resultCount = 0;
 
         $containerHtml = $this->getContainer($searchPageHtml);
-        $resultsHtml = $this->getResultBlocks($containerHtml);
+        if ($containerHtml) {
+            $resultsHtml = $this->getResultBlocks($containerHtml);
+            $resultCount = count($resultsHtml);
 
-        foreach ($resultsHtml as $res) {
-            if (intval($res["seeds"]) >= $this->min_seeds) {
-                $sl = new SearchLink();
-                $sl->setSource("MDL");
-                $sl->setName($res["title"]);
-                $sl->setSourceUrl($this->baseurl . $res["source_url"]);
-                $sl->setDownloadUrl($res["download_url"]);
-                $sl->setHash(md5($res["download_url"]));
-                $sl->setSize($res["filesize"]);
-                // $sl->setDateTime($res["age"]);
-                $sl->setSeeds($res["seeds"]);
-                $sl->setPeers($res["leeches"]);
-                $sl->setCategory($res["category"]);
+            foreach ($resultsHtml as $res) {
+                if (intval($res["seeds"]) >= $this->min_seeds) {
+                    $sl = new SearchLink();
+                    $sl->setSource("MDL");
+                    $sl->setName($res["title"]);
+                    $sl->setSourceUrl($this->baseurl . $res["source_url"]);
+                    $sl->setDownloadUrl($res["download_url"]);
+                    $sl->setHash(md5($res["download_url"]));
+                    $sl->setSize($res["filesize"]);
+                    // $sl->setDateTime($res["age"]);
+                    $sl->setSeeds($res["seeds"]);
+                    $sl->setPeers($res["leeches"]);
+                    $sl->setCategory($res["category"]);
+                    // $this->log(json_encode($sl->getDataArray(), JSON_PRETTY_PRINT));
 
-                // $this->log(json_encode($sl->getDataArray(), JSON_PRETTY_PRINT));
-                $sl->feedDataToPlugin($plugin);
+                    $sl->feedDataToPlugin($plugin);
+                }
             }
         }
 
-        return count($resultsHtml);
+        return count($resultCount);
     }
 
     /**
-     * Regex: https://regex101.com/r/k209gf/1
+     *
+     * @param string $html
+     * @return boolean|array
      */
     protected function getResultBlocks($html)
     {
         $answer = false;
         $m = [];
+        // Regex: https://regex101.com/r/k209gf/1
         $regex = '<tr><td class="m"><a href="(?P<download_url>magnet:\?xt=urn:btih:[^"]*)" [^>]*>.*</td><td class="n"><a href="(?P<source_url>[^"]*)".*title="(?P<title>[^"]*)">.*</td><td>(?P<age>[^<]*)</td><td class="t2">(?P<category>[^<]*)</td><td>(?P<filecount>[^<]*)</td><td>(?P<filesize>[^<]*)</td><td class="s">(?P<seeds>[^<]*)</td><td class="l">(?P<leeches>[^<]*)</td>.*</tr>';
         if (preg_match_all("#$regex#siU", $html, $m, PREG_SET_ORDER)) {
             $answer = $m;
@@ -105,6 +112,11 @@ class MagnetDLDlsSearchPlugin extends DlsPlugin implements DlsPluginInterface
         return $answer;
     }
 
+    /**
+     *
+     * @param string $html
+     * @return boolean|string
+     */
     protected function getContainer($html)
     {
         $answer = false;
