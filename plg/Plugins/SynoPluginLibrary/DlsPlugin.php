@@ -34,6 +34,9 @@ class DlsPlugin
     protected $curl_headers = [
         "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
     ];
+    
+    /** @var string     The search term */
+    protected $query = "";
 
     /**
      * Constructor
@@ -49,6 +52,7 @@ class DlsPlugin
      */
     public function prepare($curl, $query)
     {
+        $this->query = $query;
         $this->curl_options[CURLOPT_HTTPHEADER] = $this->curl_headers;
         curl_setopt_array( $curl, $this->curl_options );
         $this->log(sprintf("Searching(%s): '%s'", $query, $this->curl_options[CURLOPT_URL]));

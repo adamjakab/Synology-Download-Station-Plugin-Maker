@@ -185,6 +185,9 @@ class SearchLink
     public function setName($name)
     {
         $this->name = $name;
+        if (!$this->getHash()) {
+            $this->setHash(md5($this->name));
+        }
     }
 
     /**
